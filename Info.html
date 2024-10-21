@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <title>Pokémon Info Page</title>
+    <script src="https://kit.fontawesome.com/536e85ac3b.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <section class="mainSection">
+      <div class="pg2Container">
+
+        <div class="header">
+         
+          <br />
+          <div>
+            <button onclick="window.history.back()" class="home-icon">
+              <i class="fa-solid fa-house"></i>
+            </button>
+            <span class="number">number</span>
+          </div>
+          <div class="centered-text">
+            
+             <p class="pokemon-name"></p>
+          </div>
+        </div>
+
+        <div class="imageContainer">
+          <i class="fa-solid fa-arrow-left"></i>
+          <img src="" alt="Pokémon Image" class="img" />
+          <i class="fa-solid fa-arrow-right"></i>
+        </div>
+
+
+        <div class="infoContainer">
+          <p class="typeOfPokemon">Type</p>
+          <div class="healthInfo">
+            <h1 class="about">About</h1>
+            <div class="info">
+              <div class="pokemonBodyInfo">
+                <p class="weight">-- kg</p>
+                <p class="weight-header">Weight</p>
+              </div>
+              <div class="pokemonBodyInfo">
+                <p class="height">-- m</p>
+                <p class="height-header">Height</p>
+              </div>
+              <div class="pokemonBodyInfo">
+                <p class="move">--</p>
+                <p class="move-header">Move</p>
+              </div>
+            </div>
+          </div>
+          <div class="BassStats">
+            <h1 class="baseStatsHeader">Base Stats</h1>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="info.js"></script>
+  </body>
+</html>

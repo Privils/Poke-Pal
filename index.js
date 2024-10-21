@@ -2,81 +2,67 @@ const maxPokemon = 200;
 let allPokemons = [];
 const searchValue = document.querySelector("#input");
 
-// Fetch Pokémon data
+// Fetching the list of Pokémon
 fetch(`https://pokeapi.co/api/v2/pokemon?limit=${maxPokemon}`)
   .then((res) => res.json())
   .then((data) => {
-    console.log(data);
-    console.log(data.results);
     allPokemons = data.results;
-    displayHomeData(allPokemons); // Call displayHomeData here
+    displayHomeData(allPokemons); // Displaying Pokémon after fetching
   });
 
-// Function to redirect and fetch species data
-async function pokemonRedirect(id) {
+// Fetch Pokémon data before redirect
+const myPokemonDataBeforeRedirect = async (id) => {
   try {
-    const [pokemonId, pokemonSpecies] = await Promise.all([
-      fetch(`https://pokeapi.co/api/v2/pokemon/${id}`).then(
-        (res) => res.json()
+    const [pokemon, pokemonSpecies] = await Promise.all([
+      fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`).then((response) =>
+        response.json()
       ),
-      fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`).then((res) =>
+      fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}/`).then((res) =>
         res.json()
       ),
     ]);
-    return { pokemonId, pokemonSpecies }; // Return relevant data
+    return true; // Returning true to indicate success
   } catch (error) {
     console.log(error);
+    return false; // Return false if there is an error
   }
-}
+};
 
-// Function to display Pokémon data
+// Displaying Home Pokémon List
 function displayHomeData(pokemonList) {
-  let homeEl = "";
+  let homeDataEl = document.querySelector("#mainContentContainer"); // Ensure homeDataEl is a DOM element
+  homeDataEl.innerHTML = ""; // Clear the container before populating it
 
-  // Loop through the Pokémon list
-  Array.isArray(pokemonList) &&
-    pokemonList.forEach((pokemon) => {
-      const pokemonId = pokemon.url.split("/")[6]; // Get the ID from the URL
+  pokemonList.forEach((pokemon) => {
+    const pokemonId = pokemon.url.split("/")[6]; // Correctly extract the Pokémon ID
 
-      // Create a container div for each Pokémon
-      const newContainer = document.createElement("div");
-      newContainer.className = "pokemonInitial";
+    const listDiv = document.createElement("div");
+    listDiv.className = "pokemonInitial"; // Set the class
 
-      // Add the Pokémon HTML content
-      newContainer.innerHTML = `
-        <div id="p-Container">
-          <p class="rightText">#${pokemonId}</p>
-        </div>
-        <div id="img-container">
-          <img alt="${pokemon.name}" src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${pokemonId}.svg" />
-        </div>
-        <div id="nameContainer">
-          <span id="name">${pokemon.name}</span>
-        </div>
-      `;
+    listDiv.innerHTML = `
+          <div id="p-Container">
+            <p class="rightText">#${pokemonId}</p>
+          </div>
+          <div id="img-container">
+            <a href="info.html?name=${pokemon.name}">
+              <img alt="${pokemon.name}" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemonId}.svg" id="img"/>
+            </a>
+          </div>
+          <div id="nameContainer">
+            <span id="name">
+              <a href="Info.html?name=${pokemon.name}">${pokemon.name}</a>
+            </span>
+          </div>
+    `;
 
-      // Append the container HTML to the homeEl string
-      homeEl += newContainer.outerHTML;
+    // Add click event listener to each Pokémon item
+    listDiv.addEventListener('click', async () => {
+      const success = await myPokemonDataBeforeRedirect(pokemonId); // Use correct variable `pokemonId`
+      if (success) {
+        window.location.href = `Info.html?name=${pokemonId}`; // Correct redirection syntax
+      }
     });
 
-  // Ensure we are selecting the right container
-  const container = document.querySelector("#mainContentContainer");
-  container.innerHTML = homeEl; // Update container with the accumulated HTML
-}
-
-// Event listener for search (if needed)
-document.querySelector("#form").addEventListener("submit", (e) => {
-  e.preventDefault(); // Prevent default form submission
-
-  const query = searchValue.value.toLowerCase();
-  
-  // Filter the Pokémon list based on the search query (name or ID)
-  const filteredPokemons = allPokemons.filter((pokemon) => {
-    return (
-      pokemon.name.toLowerCase().includes(query) ||
-      pokemon.url.split("/")[6] === query // Check if the query matches the ID
-    );
+    homeDataEl.appendChild(listDiv); // Append the newly created element to the container
   });
-
-  displayHomeData(filteredPokemons); // Update the display with filtered data
-});
+}
