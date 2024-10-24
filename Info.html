@@ -10,54 +10,77 @@
   <body>
     <section class="mainSection">
       <div class="pg2Container">
-
-        <div class="header">
-         
-          <br />
-          <div>
-            <button onclick="window.history.back()" class="home-icon">
-              <i class="fa-solid fa-house"></i>
-            </button>
-            <span class="number">number</span>
-          </div>
-          <div class="centered-text">
+        <header class="header">
+          <button class="home-icon">
             
-             <p class="pokemon-name"></p>
+            <a href="index.html">
+                <i class="fa-solid fa-house"></i>
+            </a>
+          </button>
+          <span class="num">#001</span>
+          <div class="centered-text">
+            <p class="pokemon-name">Bulbasaur</p>
           </div>
-        </div>
+        </header>
 
         <div class="imageContainer">
-          <i class="fa-solid fa-arrow-left"></i>
+          <i class="fa fa-arrow-left"></i>
           <img src="" alt="Pokémon Image" class="img" />
-          <i class="fa-solid fa-arrow-right"></i>
+          <i class="fa fa-arrow-right"></i>
         </div>
 
-
         <div class="infoContainer">
-          <p class="typeOfPokemon">Type</p>
-          <div class="healthInfo">
-            <h1 class="about">About</h1>
-            <div class="info">
-              <div class="pokemonBodyInfo">
-                <p class="weight">-- kg</p>
-                <p class="weight-header">Weight</p>
-              </div>
-              <div class="pokemonBodyInfo">
-                <p class="height">-- m</p>
-                <p class="height-header">Height</p>
-              </div>
-              <div class="pokemonBodyInfo">
-                <p class="move">--</p>
-                <p class="move-header">Move</p>
-              </div>
+          <p class="typeOfPokemon">Grass/Poison</p>
+          <h1 class="about">About</h1>
+
+          <div class="info">
+            <div class="pokemonBodyInfo">
+              <p class="weight">6.9 kg</p>
+              <p class="weight-header">Weight</p>
+            </div>
+            <div class="pokemonBodyInfo">
+              <p class="height">0.7 m</p>
+              <p class="height-header">Height</p>
+            </div>
+            <div class="pokemonBodyInfo">
+              <p class="move">Overgrow</p>
+              <p class="move-header">Move</p>
             </div>
           </div>
-          <div class="BassStats">
-            <h1 class="baseStatsHeader">Base Stats</h1>
+
+          <h1 class="baseStatsHeader">Base Stats</h1>
+          <div class="stat-container">
+            <div class="outer">
+              <svg width="160" height="160">
+                <circle cx="80" cy="80" r="70" id="hp-circle"></circle>
+              </svg>
+              <div class="inner">
+                <span id="hp-percentage" class="number">45%</span>
+              </div>
+            </div>
+
+            <div class="outer">
+              <svg width="160" height="160">
+                <circle cx="80" cy="80" r="70" id="attack-circle"></circle>
+              </svg>
+              <div class="inner">
+                <span id="attack-percentage" class="number">49%</span>
+              </div>
+            </div>
+
+            <div class="outer">
+              <svg width="160" height="160">
+                <circle cx="80" cy="80" r="70" id="defense-circle"></circle>
+              </svg>
+              <div class="inner">
+                <span id="defense-percentage" class="number">49%</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
+
     <script src="info.js"></script>
   </body>
 </html>

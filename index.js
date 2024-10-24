@@ -1,16 +1,17 @@
+
 const maxPokemon = 200;
 let allPokemons = [];
-const searchValue = document.querySelector("#input");
+const searchValue = document.querySelector("#input"); // Your search input
 
-// Fetching the list of Pokémon
+// Fetch Pokémon data
 fetch(`https://pokeapi.co/api/v2/pokemon?limit=${maxPokemon}`)
   .then((res) => res.json())
   .then((data) => {
     allPokemons = data.results;
-    displayHomeData(allPokemons); // Displaying Pokémon after fetching
+    displayHomeData(allPokemons); // Display fetched Pokémon
   });
 
-// Fetch Pokémon data before redirect
+// Fetch detailed Pokémon data
 const myPokemonDataBeforeRedirect = async (id) => {
   try {
     const [pokemon, pokemonSpecies] = await Promise.all([
@@ -21,23 +22,23 @@ const myPokemonDataBeforeRedirect = async (id) => {
         res.json()
       ),
     ]);
-    return true; // Returning true to indicate success
+    return true; // Success
   } catch (error) {
     console.log(error);
-    return false; // Return false if there is an error
+    return false; // Handle failure
   }
 };
 
-// Displaying Home Pokémon List
+// Function to display Pokémon list on the homepage
 function displayHomeData(pokemonList) {
-  let homeDataEl = document.querySelector("#mainContentContainer"); // Ensure homeDataEl is a DOM element
-  homeDataEl.innerHTML = ""; // Clear the container before populating it
+  let homeDataEl = document.querySelector("#mainContentContainer"); // Selecting the main content container
+  homeDataEl.innerHTML = ""; // Clear any previous content
 
   pokemonList.forEach((pokemon) => {
-    const pokemonId = pokemon.url.split("/")[6]; // Correctly extract the Pokémon ID
+    const pokemonId = pokemon.url.split("/")[6]; // Extracting the Pokémon ID
 
     const listDiv = document.createElement("div");
-    listDiv.className = "pokemonInitial"; // Set the class
+    listDiv.className = "pokemonInitial";
 
     listDiv.innerHTML = `
           <div id="p-Container">
@@ -50,19 +51,19 @@ function displayHomeData(pokemonList) {
           </div>
           <div id="nameContainer">
             <span id="name">
-              <a href="Info.html?name=${pokemon.name}">${pokemon.name}</a>
+              <a href="info.html?name=${pokemon.name}">${pokemon.name}</a>
             </span>
           </div>
     `;
 
-    // Add click event listener to each Pokémon item
+    // Add a click listener to each Pokémon item
     listDiv.addEventListener('click', async () => {
-      const success = await myPokemonDataBeforeRedirect(pokemonId); // Use correct variable `pokemonId`
+      const success = await myPokemonDataBeforeRedirect(pokemonId); // Use the correct Pokémon ID
       if (success) {
-        window.location.href = `Info.html?name=${pokemonId}`; // Correct redirection syntax
+        window.location.href = `Info.html?name=${pokemonId}`; // Redirect on success
       }
     });
 
-    homeDataEl.appendChild(listDiv); // Append the newly created element to the container
+    homeDataEl.appendChild(listDiv); // Append the Pokémon item to the container
   });
 }
