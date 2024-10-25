@@ -175,11 +175,11 @@ input {
   }
 }
 
-  /*--------------------------page 2 styles*------------------------------*/
+/*--------------------------page 2 styles*------------------------------*/
 
 /* Body and Main Section */
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   background-color: #f4f4f9;
   color: #333;
 }
@@ -208,11 +208,11 @@ body {
   background: none;
   border: none;
 }
-.home-icon a{
+.home-icon a {
   background: none;
   color: none;
 }
-.home-icon a i{
+.home-icon a i {
   color: #035185;
 }
 .home-icon:hover {
@@ -323,7 +323,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.1), -6px -6px 10px rgba(255, 255, 255, 0.7);
+  box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.1),
+    -6px -6px 10px rgba(255, 255, 255, 0.7);
 }
 
 .inner {
@@ -334,7 +335,8 @@ body {
   align-items: center;
   justify-content: center;
   background-color: #fff;
-  box-shadow: inset 4px 4px 6px rgba(0, 0, 0, 0.1), inset -4px -4px 6px rgba(255, 255, 255, 0.7);
+  box-shadow: inset 4px 4px 6px rgba(0, 0, 0, 0.1),
+    inset -4px -4px 6px rgba(255, 255, 255, 0.7);
 }
 
 .number {
@@ -377,6 +379,9 @@ svg {
   .inner {
     height: 100px;
     width: 100px;
+  }
+  .stat-container {
+    flex-wrap: wrap;
   }
 }
 

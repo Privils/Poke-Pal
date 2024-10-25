@@ -1,17 +1,16 @@
-
 const maxPokemon = 200;
 let allPokemons = [];
-const searchValue = document.querySelector("#input"); // Your search input
+const searchValue = document.querySelector("#input");
 
-// Fetch Pokémon data
+// Fetching Pokémon data for homepage
 fetch(`https://pokeapi.co/api/v2/pokemon?limit=${maxPokemon}`)
   .then((res) => res.json())
   .then((data) => {
     allPokemons = data.results;
-    displayHomeData(allPokemons); // Display fetched Pokémon
+    displayHomeData(allPokemons); // Displaying fetched Pokémon data
   });
 
-// Fetch detailed Pokémon data
+// Fetching detailed Pokémon data
 const myPokemonDataBeforeRedirect = async (id) => {
   try {
     const [pokemon, pokemonSpecies] = await Promise.all([
@@ -22,17 +21,17 @@ const myPokemonDataBeforeRedirect = async (id) => {
         res.json()
       ),
     ]);
-    return true; // Success
+    return true; // checking if successful
   } catch (error) {
     console.log(error);
-    return false; // Handle failure
+    return false; // Handling failure and errors
   }
 };
 
 // Function to display Pokémon list on the homepage
 function displayHomeData(pokemonList) {
-  let homeDataEl = document.querySelector("#mainContentContainer"); // Selecting the main content container
-  homeDataEl.innerHTML = ""; // Clear any previous content
+  let homeDataEl = document.querySelector("#mainContentContainer");
+  homeDataEl.innerHTML = ""; // Clearing out any previous content
 
   pokemonList.forEach((pokemon) => {
     const pokemonId = pokemon.url.split("/")[6]; // Extracting the Pokémon ID
@@ -55,15 +54,13 @@ function displayHomeData(pokemonList) {
             </span>
           </div>
     `;
-
-    // Add a click listener to each Pokémon item
-    listDiv.addEventListener('click', async () => {
-      const success = await myPokemonDataBeforeRedirect(pokemonId); // Use the correct Pokémon ID
+    listDiv.addEventListener("click", async () => {
+      const success = await myPokemonDataBeforeRedirect(pokemonId);
       if (success) {
-        window.location.href = `Info.html?name=${pokemonId}`; // Redirect on success
+        window.location.href = `Info.html?name=${pokemonId}`; // Redirecting on success
       }
     });
 
-    homeDataEl.appendChild(listDiv); // Append the Pokémon item to the container
+    homeDataEl.appendChild(listDiv);
   });
 }
